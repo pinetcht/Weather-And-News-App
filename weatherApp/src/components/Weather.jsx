@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import '../style/Grids.css';
 import CurWeather from './CurWeather'
+import Daily from './Daily'
+import Hourly from './Hourly'
 
 const WeatherApp = () => {
     const [query, setQuery] = useState("");
@@ -11,7 +13,6 @@ const WeatherApp = () => {
     const API = import.meta.env.VITE_WEATHER_KEY;
     let url = new URL("http://api.openweathermap.org/geo/1.0/direct");
 
-
     useEffect(() => {
         if (geocode) {
             const lat = geocode.lat;
@@ -19,6 +20,7 @@ const WeatherApp = () => {
             let url2 = new URL("https://api.openweathermap.org/data/2.5/onecall");
             url2.searchParams.append("lat", lat);
             url2.searchParams.append("lon", lon);
+            url2.searchParams.append("metric", "units");
             url2.searchParams.append("appid", API);
 
             const fetchData = async () => {
@@ -36,7 +38,7 @@ const WeatherApp = () => {
             setLoading(false)
 
             fetchData().catch(console.error);
-           
+
         }
     }, [geocode]);
 
@@ -50,15 +52,15 @@ const WeatherApp = () => {
             setLoading(true);
             const data = await fetch(url);
             const json = await data.json();
-      
+
             if (json && json[0]) {
-              setGeocode(json[0]);
+                setGeocode(json[0]);
             }
-          } catch (error) {
+        } catch (error) {
             console.error('Error fetching geocode data:', error);
-          } finally {
+        } finally {
             setLoading(false);
-          }
+        }
     };
 
     const handleInputChange = (event) => {
@@ -80,18 +82,19 @@ const WeatherApp = () => {
                         id="location"
                         name="location"
                     ></input>
-                    <button type="submit" disabled={loading}>Enter</button>
+                    <button type="submit">Enter</button>
                 </form>
             </div>
 
             <div className="grid">
-                <div className="box"> <CurWeather /></div>
-                <div className="box"></div>
-                <div className="box"></div>
+                <div className="box"> <CurWeather weather={weather} /></div>
+                <div className="box"> <Hourly weather={weather}></Hourly></div>
+                <div className="box"> <Daily weather={weather}> </Daily></div>
                 <div className="box"></div>
             </div>
 
             <pre>{JSON.stringify(geocode, null, 2)}</pre>
+            <pre>{JSON.stringify(weather, null, 2)}</pre>
         </>
     );
 };
