@@ -1,4 +1,4 @@
-import "../style/Grids.css";
+import "../style/Styles.css";
 
 const CurWeather = ({ weather }) => {
   // if (!weather) return null;

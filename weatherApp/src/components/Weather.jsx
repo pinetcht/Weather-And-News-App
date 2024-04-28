@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import '../style/Grids.css';
+import '../style/Styles.css';
 import CurWeather from './CurWeather'
 import Daily from './Daily'
 import Hourly from './Hourly'
+import News from './News'
 
 const WeatherApp = () => {
     const [query, setQuery] = useState("");
@@ -90,7 +91,7 @@ const WeatherApp = () => {
                 <div> <CurWeather weather={weather} /></div>
                 <div> <Hourly weather={weather}></Hourly></div>
                 <div> <Daily weather={weather}> </Daily></div>
-                <div className="box"><h3>News</h3></div>
+                <div className="box"><h3> <News/></h3></div>
             </div>
 
             <pre>{JSON.stringify(geocode, null, 2)}</pre>

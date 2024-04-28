@@ -1,4 +1,4 @@
-import "../style/Grids.css";
+import "../style/Styles.css";
 
 const Hourly = ({ weather }) => {
   //   if (!weather) return null;
@@ -23,7 +23,7 @@ const Hourly = ({ weather }) => {
         <div className="forecastBox">
           <div className="forecasts">
             <img src="https://openweathermap.org/img/wn/10d@2x.png"></img>
-            <p>description</p>
+            <p>description:</p>
             <p>min temp: </p>
             <p>max temp: </p>
           </div>

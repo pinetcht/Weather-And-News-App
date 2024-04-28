@@ -1,4 +1,4 @@
-import "../style/Grids.css";
+import "../style/Styles.css";
 
 const Daily = ({ weather }) => {
   //   if (!weather) return null;
