@@ -87,10 +87,10 @@ const WeatherApp = () => {
             </div>
 
             <div className="grid">
-                <div className="box"> <CurWeather weather={weather} /></div>
-                <div className="box"> <Hourly weather={weather}></Hourly></div>
-                <div className="box"> <Daily weather={weather}> </Daily></div>
-                <div className="box"></div>
+                <div> <CurWeather weather={weather} /></div>
+                <div> <Hourly weather={weather}></Hourly></div>
+                <div> <Daily weather={weather}> </Daily></div>
+                <div className="box"><h3>News</h3></div>
             </div>
 
             <pre>{JSON.stringify(geocode, null, 2)}</pre>

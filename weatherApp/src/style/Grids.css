@@ -2,10 +2,15 @@
     background-color: whitesmoke;
     border-color: black;
     border-radius: 10px;
-    height: 200px;
     box-shadow: 10px 10px 5px gainsboro;
+    height: auto;
     margin: 10px;
-    
+}
+
+.texts {
+    display: flex;
+    border-color: pink;
+    margin: 10px;
 }
 
 .grid {
@@ -17,5 +22,5 @@
 }
 
 .grid > div {
-    flex-basis: calc(50% - 40px)
+    flex-basis: auto;
 }

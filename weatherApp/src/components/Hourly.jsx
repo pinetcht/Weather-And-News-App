@@ -1,18 +1,41 @@
+import "../style/Grids.css";
+
 const Hourly = ({ weather }) => {
-  const hourly = weather.hourly;
+//   if (!weather) return null;
+
+//   const hourly = weather.hourly;
 
   return (
     <>
-      {hourly.slice(0,3).forEach((hour) => (
+      {/* {hourly.slice(0,3).map((hour, index) => (
         <>
-          <img src="https://openweathermap.org/img/wn/${hour.weather[0].icon}.png"></img>
+        <div key={index} style={{ height: "200px" }}> 
+         <img src="https://openweathermap.org/img/wn/${hour.weather[0].icon}.png"></img>
           <p>{hour.weather[0].description}</p>
           <p>{hour.temp}</p>
           <p>{hour.dt_txt}</p>
+        </div>
         </>
-      ))}
+      ))} */}
 
-      <p>hourly!</p>
+      <div className="box">
+        <h3>Hourly forecast</h3>
+        <div className="texts">
+          <div style={{ marginRight: "20px" }}>
+            <img src="https://openweathermap.org/img/wn/10d@2x.png"></img>
+            <p>description</p>
+            <p>min temp: </p>
+            <p>max temp: </p>
+          </div>
+
+          <div style={{ marginRight: "20px" }}>
+            <img src="https://openweathermap.org/img/wn/10d@2x.png"></img>
+            <p>description</p>
+            <p>min temp: </p>
+            <p>max temp: </p>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
