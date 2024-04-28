@@ -13,15 +13,15 @@ const CurWeather = ({ weather }) => {
     <>
       <div className="box">
         <h3>Current weather forecast</h3>
-        <div style={{ display: "flex" }}>
-          <div style={{ height: "200px" }}>
+        <div className="forecastBox">
+          <div className="forecasts">
             <img src="https://openweathermap.org/img/wn/10d@2x.png"></img>
             <p>description</p>
             <p>min temp: </p>
             <p>max temp: </p>
           </div>
 
-          <div style={{ height: "200px" }}>
+          <div className="forecasts">
             <img src="https://openweathermap.org/img/wn/10d@2x.png"></img>
             <p>description</p>
             <p>min temp: </p>

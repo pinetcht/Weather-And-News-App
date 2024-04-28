@@ -1,9 +1,9 @@
 import "../style/Grids.css";
 
 const Hourly = ({ weather }) => {
-//   if (!weather) return null;
+  //   if (!weather) return null;
 
-//   const hourly = weather.hourly;
+  //   const hourly = weather.hourly;
 
   return (
     <>
@@ -19,16 +19,16 @@ const Hourly = ({ weather }) => {
       ))} */}
 
       <div className="box">
-        <h3>Hourly forecast</h3>
-        <div className="texts">
-          <div style={{ marginRight: "20px" }}>
+        <h3 className="boxHeader">Hourly forecast</h3>
+        <div className="forecastBox">
+          <div className="forecasts">
             <img src="https://openweathermap.org/img/wn/10d@2x.png"></img>
             <p>description</p>
             <p>min temp: </p>
             <p>max temp: </p>
           </div>
 
-          <div style={{ marginRight: "20px" }}>
+          <div className="forecasts">
             <img src="https://openweathermap.org/img/wn/10d@2x.png"></img>
             <p>description</p>
             <p>min temp: </p>

@@ -17,16 +17,16 @@ const Daily = ({ weather }) => {
       ))} */}
 
       <div className="box">
-        <h3>Daily forecast</h3>
-        <div  className="texts">
-          <div style={{ height: "200px" }}>
+        <h3 className="boxHeader">Daily forecast</h3>
+        <div className="forecastBox">
+          <div className="forecasts">
             <img src="https://openweathermap.org/img/wn/10d@2x.png"></img>
             <p>description</p>
             <p>min temp: </p>
             <p>max temp: </p>
           </div>
 
-          <div style={{ height: "200px" }}>
+          <div className="forecasts">
             <img src="https://openweathermap.org/img/wn/10d@2x.png"></img>
             <p>description</p>
             <p>min temp: </p>

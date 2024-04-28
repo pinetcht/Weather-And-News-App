@@ -69,7 +69,7 @@ const WeatherApp = () => {
 
     return (
         <>
-            <h1>helloooo</h1>
+            <h1>Weather and News App</h1>
             <div>
                 <form id="searchLocation" onSubmit={handleClick}>
                     <label id="locationLabel" htmlFor="location">
