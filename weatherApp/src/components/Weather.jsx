@@ -29,7 +29,7 @@ const WeatherApp = () => {
                 setLon(json[0].lon)
             }
         } catch (error) {
-            console.error('Error fetching geocode data:', error);
+            console.error('Error fetching hourly weather data:', error);
         }
     };
 

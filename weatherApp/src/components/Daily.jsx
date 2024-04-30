@@ -2,30 +2,77 @@ import "../style/Styles.css";
 import React, { useEffect, useState } from "react";
 
 const Daily = ({ lat, lon }) => {
-  //   if (!weather) return null;
 
-  //   const daily = weather.daily;
+  const [dailyInfo, setDailyInfo] = useState(null);
+  const [name, setName] = useState(null);
+
+  useEffect(() => {
+    let url = new URL(
+      "https://api.openweathermap.org/data/2.5/forecast/daily"
+    );
+    const API = import.meta.env.VITE_WEATHER_KEY;
+
+    url.searchParams.append("lat", lat);
+    url.searchParams.append("lon", lon);
+    url.searchParams.append("cnt", "7");
+    url.searchParams.append("units", "metric");
+    url.searchParams.append("appid", API);
+
+    if (lat && lon) {
+      const fetchData = async () => {
+        const data = await fetch(url);
+        const json = await data.json();
+
+        if (json.list) {
+          setDailyInfo(json.list);
+        }
+
+        if (json && json.city.name) {
+          setName(json.city.name);
+        }
+      };
+      fetchData();
+
+      fetchData().catch(console.error);
+    }
+  }, [lat, lon]);
+
+  let Daily = null;
+
+  if (dailyInfo && dailyInfo.length > 0) {
+    Daily = dailyInfo.map((day, index) => {
+      const minT = day.temp.min;
+      const maxT = day.temp.min;
+      const icon = day.weather[0].icon;
+      const desc = day.weather[0].description;
+
+
+      const dt = day.dt;
+      let date = new Date(dt * 1000);
+      date = date.toLocaleString().split(" ")[0].replace(",","")
+
+      return (
+        <div key={index}>
+          <p>{date}</p>
+          <img
+            src={"https://openweathermap.org/img/wn/" + icon + ".png"}
+            alt="weather icon"
+          ></img>
+          <p>{desc}</p>
+          <p>{minT} °C / {maxT} °C</p>
+          {/* <p>max temp: </p> */}
+        </div>
+      );
+    });
+  }
 
   return (
     <>
-      {/* {daily.slice(0, 3).forEach((day) => (
-        <>
-          <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}.png"></img>
-          <p>{day.weather[0].description}</p>
-          <p>min temp: {day.temp.min}</p>
-          <p>max temp: {day.temp.max}</p>
-        </>
-      ))} */}
-
       <div className="box">
         <h3 className="boxHeader">Daily forecast</h3>
+        <h4>{name}</h4>
         <div className="forecastBox">
-          <div className="forecasts">
-            <img src="https://openweathermap.org/img/wn/10d@2x.png"></img>
-            <p>description</p>
-            <p>min temp: </p>
-            <p>max temp: </p>
-          </div>
+          <div className="forecasts">{Daily}</div>
         </div>
       </div>
     </>

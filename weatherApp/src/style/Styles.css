@@ -1,14 +1,3 @@
-.box {
-  background-color: whitesmoke;
-  border-color: black;
-  border-radius: 10px;
-  box-shadow: 10px 10px 5px gainsboro;
-  height: auto;
-  margin: 10px;
-  text-align: center;
-  padding: 10px;
-}
-
 
 .grid {
   margin: 10px;
@@ -17,38 +6,70 @@
   flex-direction: row;
 }
 
-.forecastBox {
-  display: flex;
+.box {
+  background-color:antiquewhite;
+  border-color: black;
+  border-radius: 10px;
+  box-shadow: 10px 10px 5px gainsboro;
+  height: 200px;
+  width: auto;
   margin: 10px;
+  text-align: center;
+  padding: 10px;
+}
+
+
+.grid > div {
+  flex-basis: calc(50% - 20px);
+}
+
+.forecastBox {
+  display:flex;
+  flex-direction: row;
+  margin: 5px;
 }
 
 .forecasts {
-  align-content:flex-start;
+  display: flex;
   font-family:Georgia, 'Times New Roman', Times, serif;
   font-size: smaller;
+  align-content: center;
+  margin:5px;
 }
+
+.forecasts > div {
+  /* display: flex; */
+  align-content:start;
+  flex-wrap: wrap;
+  flex-direction: row;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
 
 .forecasts p {
   margin: 5px 10px;
 }
 
-.grid > div {
-  flex-basis: calc(50% - 20px);
+h1 {
+  margin: 5px;
+  font-family: 'Courier New', Courier, monospace;
 }
+
 
 h3 {
    margin: 5px;
    font-family: 'Courier New', Courier, monospace;
 }
 
+h4 {
+  margin: 5px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
 body {
     padding: 10px;
 }
 
-h1 {
-    margin: 5px;
-    font-family: 'Courier New', Courier, monospace;
-}
 
 input {
     margin: 5px;

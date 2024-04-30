@@ -54,17 +54,21 @@ const CurWeather = ({ lat, lon }) => {
     <>
       <div className="box">
         <h3>Current weather forecast</h3>
+        <h4>{name}</h4>
         <div className="forecastBox">
-          <div className="forecasts">
-            <h4>{name}</h4>
-            <img
-              src={"https://openweathermap.org/img/wn/" + icon + ".png"}
-              alt="Weather icon"
-            />
-            <p>description: {desc}</p>
-            <p>min temp: {minTemp}</p>
-            <p>max temp: {maxTemp}</p>
-          </div>
+          {curWeather && (          
+            <div className="forecasts">
+              <div>
+                <img
+                  src={"https://openweathermap.org/img/wn/" + icon + ".png"}
+                  alt="Weather icon"
+                />
+                <p>{desc}</p>
+                <p> {minTemp} °C / {maxTemp} °C</p>
+                {/* <p>max temp: {maxTemp} °C</p> */}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>

@@ -2,15 +2,13 @@ import "../style/Styles.css";
 import React, { useEffect, useState } from "react";
 
 const Hourly = ({ lat, lon }) => {
-  const [curWeather, setCurWeather] = useState(null);
+  const [hourlyInfo, setHourlyInfo] = useState(null);
   const [name, setName] = useState(null);
-  const [minTemp, setMinTemp] = useState(null);
-  const [maxTemp, setMaxTemp] = useState(null);
-  const [icon, setIcon] = useState(null);
-  const [desc, setDesc] = useState(null);
 
   useEffect(() => {
-    let url = new URL("https://api.openweathermap.org/data/2.5/hourly");
+    let url = new URL(
+      "https://pro.openweathermap.org/data/2.5/forecast/hourly"
+    );
     const API = import.meta.env.VITE_WEATHER_KEY;
 
     url.searchParams.append("lat", lat);
@@ -25,21 +23,12 @@ const Hourly = ({ lat, lon }) => {
 
         console.log(json);
 
-        if (json) {
-          setCurWeather(json);
+        if (json.list) {
+          setHourlyInfo(json.list);
         }
 
-        if (json && json.main) {
-          setMinTemp(json.main.temp_min);
-          setMaxTemp(json.main.temp_max);
-        }
-
-        if (json && json.weather && json.weather.length > 0) {
-          setIcon(json.weather[0].icon);
-          setDesc(json.weather[0].description);
-        }
-        if (json && json.name) {
-          setName(json.name);
+        if (json && json.city.name) {
+          setName(json.city.name);
         }
       };
       fetchData();
@@ -48,35 +37,39 @@ const Hourly = ({ lat, lon }) => {
     }
   }, [lat, lon]);
 
+  let Hourly = null;
+
+  if (hourlyInfo && hourlyInfo.length > 0) {
+    Hourly = hourlyInfo.slice(0, 4).map((hour, index) => {
+      const minT = hour.main.temp_min;
+      const maxT = hour.main.temp_max;
+      const icon = hour.weather[0].icon;
+      const desc = hour.weather[0].description;
+
+      const dt_text = hour.dt_txt.split(" ")[1].substr(0,5);
+
+      return (
+        <div key={index}>
+          <p>{dt_text}</p>
+          <img
+            src={"https://openweathermap.org/img/wn/" + icon + ".png"}
+            alt="weather icon"
+          ></img>
+          <p>{desc}</p>
+          <p>min temp: {minT} °C</p>
+          <p>max temp: {maxT} °C</p>
+        </div>
+      );
+    });
+  }
+
   return (
     <>
-      {/* {hourly.slice(0,3).map((hour, index) => (
-        <>
-        <div key={index} style={{ height: "200px" }}> 
-         <img src="https://openweathermap.org/img/wn/${hour.weather[0].icon}.png"></img>
-          <p>{hour.weather[0].description}</p>
-          <p>{hour.temp}</p>
-          <p>{hour.dt_txt}</p>
-        </div>
-        </>
-      ))} */}
-
       <div className="box">
         <h3 className="boxHeader">Hourly forecast</h3>
+        <h4>{name}</h4>
         <div className="forecastBox">
-          <div className="forecasts">
-            <img src="https://openweathermap.org/img/wn/10d@2x.png"></img>
-            <p>description:</p>
-            <p>min temp: </p>
-            <p>max temp: </p>
-          </div>
-
-          <div className="forecasts">
-            <img src="https://openweathermap.org/img/wn/10d@2x.png"></img>
-            <p>description</p>
-            <p>min temp: </p>
-            <p>max temp: </p>
-          </div>
+          <div className="forecasts">{Hourly}</div>
         </div>
       </div>
     </>
