@@ -14,7 +14,7 @@ const Daily = ({ lat, lon }) => {
 
     url.searchParams.append("lat", lat);
     url.searchParams.append("lon", lon);
-    url.searchParams.append("cnt", "7");
+    url.searchParams.append("cnt", "5");
     url.searchParams.append("units", "metric");
     url.searchParams.append("appid", API);
 
@@ -42,7 +42,7 @@ const Daily = ({ lat, lon }) => {
   if (dailyInfo && dailyInfo.length > 0) {
     Daily = dailyInfo.map((day, index) => {
       const minT = day.temp.min;
-      const maxT = day.temp.min;
+      const maxT = day.temp.max;
       const icon = day.weather[0].icon;
       const desc = day.weather[0].description;
 
@@ -68,7 +68,7 @@ const Daily = ({ lat, lon }) => {
 
   return (
     <>
-      <div className="box">
+      <div className="box day">
         <h3 className="boxHeader">Daily forecast</h3>
         <h4>{name}</h4>
         <div className="forecastBox">

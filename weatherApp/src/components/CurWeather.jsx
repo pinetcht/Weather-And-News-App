@@ -52,7 +52,7 @@ const CurWeather = ({ lat, lon }) => {
 
   return (
     <>
-      <div className="box">
+      <div className="box cur">
         <h3>Current weather forecast</h3>
         <h4>{name}</h4>
         <div className="forecastBox">

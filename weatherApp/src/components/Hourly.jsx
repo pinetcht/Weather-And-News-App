@@ -40,7 +40,7 @@ const Hourly = ({ lat, lon }) => {
   let Hourly = null;
 
   if (hourlyInfo && hourlyInfo.length > 0) {
-    Hourly = hourlyInfo.slice(0, 4).map((hour, index) => {
+    Hourly = hourlyInfo.slice(0, 6).map((hour, index) => {
       const minT = hour.main.temp_min;
       const maxT = hour.main.temp_max;
       const icon = hour.weather[0].icon;
@@ -56,8 +56,7 @@ const Hourly = ({ lat, lon }) => {
             alt="weather icon"
           ></img>
           <p>{desc}</p>
-          <p>min temp: {minT} °C</p>
-          <p>max temp: {maxT} °C</p>
+          <p>{minT} °C / {maxT} °C</p>
         </div>
       );
     });
@@ -65,7 +64,7 @@ const Hourly = ({ lat, lon }) => {
 
   return (
     <>
-      <div className="box">
+      <div className="box hour">
         <h3 className="boxHeader">Hourly forecast</h3>
         <h4>{name}</h4>
         <div className="forecastBox">
