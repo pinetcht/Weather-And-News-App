@@ -1,6 +1,6 @@
 import "../style/Styles.css";
 
-const Daily = ({ weather }) => {
+const Daily = ({ lat, lon }) => {
   //   if (!weather) return null;
 
   //   const daily = weather.daily;

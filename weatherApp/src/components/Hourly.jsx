@@ -1,9 +1,38 @@
 import "../style/Styles.css";
 
-const Hourly = ({ weather }) => {
+const Hourly = ({ lat, lon }) => {
   //   if (!weather) return null;
 
   //   const hourly = weather.hourly;
+
+  useEffect(() => {
+    if (geocode) {
+        const lat = geocode.lat;
+        const lon = geocode.lon;
+        let url = new URL("https://api.openweathermap.org/data/2.5/onecall");
+        url.searchParams.append("lat", lat);
+        url.searchParams.append("lon", lon);
+        url.searchParams.append("metric", "units");
+        url.searchParams.append("appid", API);
+
+        const fetchData = async () => {
+            setLoading(true)
+            const data = await fetch(url);
+            const json = await data.json();
+
+            console.log(json);
+
+            if (json[0] != null) {
+                setWeather(json[0]);
+            }
+        };
+        fetchData();
+        setLoading(false)
+
+        fetchData().catch(console.error);
+
+    }
+}, [geocode]);
 
   return (
     <>
