@@ -1,38 +1,52 @@
 import "../style/Styles.css";
+import React, { useEffect, useState } from "react";
 
 const Hourly = ({ lat, lon }) => {
-  //   if (!weather) return null;
-
-  //   const hourly = weather.hourly;
+  const [curWeather, setCurWeather] = useState(null);
+  const [name, setName] = useState(null);
+  const [minTemp, setMinTemp] = useState(null);
+  const [maxTemp, setMaxTemp] = useState(null);
+  const [icon, setIcon] = useState(null);
+  const [desc, setDesc] = useState(null);
 
   useEffect(() => {
-    if (geocode) {
-        const lat = geocode.lat;
-        const lon = geocode.lon;
-        let url = new URL("https://api.openweathermap.org/data/2.5/onecall");
-        url.searchParams.append("lat", lat);
-        url.searchParams.append("lon", lon);
-        url.searchParams.append("metric", "units");
-        url.searchParams.append("appid", API);
+    let url = new URL("https://api.openweathermap.org/data/2.5/hourly");
+    const API = import.meta.env.VITE_WEATHER_KEY;
 
-        const fetchData = async () => {
-            setLoading(true)
-            const data = await fetch(url);
-            const json = await data.json();
+    url.searchParams.append("lat", lat);
+    url.searchParams.append("lon", lon);
+    url.searchParams.append("units", "metric");
+    url.searchParams.append("appid", API);
 
-            console.log(json);
+    if (lat && lon) {
+      const fetchData = async () => {
+        const data = await fetch(url);
+        const json = await data.json();
 
-            if (json[0] != null) {
-                setWeather(json[0]);
-            }
-        };
-        fetchData();
-        setLoading(false)
+        console.log(json);
 
-        fetchData().catch(console.error);
+        if (json) {
+          setCurWeather(json);
+        }
 
+        if (json && json.main) {
+          setMinTemp(json.main.temp_min);
+          setMaxTemp(json.main.temp_max);
+        }
+
+        if (json && json.weather && json.weather.length > 0) {
+          setIcon(json.weather[0].icon);
+          setDesc(json.weather[0].description);
+        }
+        if (json && json.name) {
+          setName(json.name);
+        }
+      };
+      fetchData();
+
+      fetchData().catch(console.error);
     }
-}, [geocode]);
+  }, [lat, lon]);
 
   return (
     <>

@@ -7,24 +7,21 @@ import News from './News'
 
 const WeatherApp = () => {
     const [query, setQuery] = useState("");
-    // const [geocode, setGeocode] = useState(null);
     const [lat, setLat] = useState(null);
-    const [lon, setLon] = useState(null)
-    const [loading, setLoading] = useState(false);
+    const [lon, setLon] = useState(null);
 
 
     const handleClick = async (event) => {
         event.preventDefault();
 
         const API = import.meta.env.VITE_WEATHER_KEY;
-        let url2 = new URL("http://api.openweathermap.org/geo/1.0/direct");    
+        let url = new URL("http://api.openweathermap.org/geo/1.0/direct");    
 
-        url2.searchParams.append("q", query);
-        url2.searchParams.append("appid", API);
+        url.searchParams.append("q", query);
+        url.searchParams.append("appid", API);
 
         try {
-            setLoading(true);
-            const data = await fetch(url2);
+            const data = await fetch(url);
             const json = await data.json();
 
             if (json && json[0]) {
@@ -33,14 +30,13 @@ const WeatherApp = () => {
             }
         } catch (error) {
             console.error('Error fetching geocode data:', error);
-        } finally {
-            setLoading(false);
         }
     };
 
     const handleInputChange = (event) => {
         setQuery(event.target.value);
     };
+
 
     return (
         <>
@@ -68,10 +64,6 @@ const WeatherApp = () => {
                 <div className="box"><h3> <News/></h3></div>
             </div>
 
-            {/* <pre>{JSON.stringify(geocode, null, 2)}</pre>
-            <pre>{JSON.stringify(weather, null, 2)}</pre> */}
-            <p>{lat}</p>
-            <p>{lon}</p>
         </>
     );
 };

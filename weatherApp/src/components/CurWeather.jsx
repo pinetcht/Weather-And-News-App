@@ -1,44 +1,54 @@
 import "../style/Styles.css";
+import React, { useEffect, useState } from "react";
 
 const CurWeather = ({ lat, lon }) => {
-  // if (!weather) return null;
-
-  const [curWeather, setCurWeather] = useState(null)
+  const [curWeather, setCurWeather] = useState(null);
+  const [name, setName] = useState(null);
+  const [minTemp, setMinTemp] = useState(null);
+  const [maxTemp, setMaxTemp] = useState(null);
+  const [icon, setIcon] = useState(null);
+  const [desc, setDesc] = useState(null);
 
   useEffect(() => {
-    if (lat & lon) {
-      let url = new URL("https://api.openweathermap.org/data/2.5/weather");
-      const API = import.meta.env.VITE_WEATHER_KEY;
+    let url = new URL("https://api.openweathermap.org/data/2.5/weather");
+    const API = import.meta.env.VITE_WEATHER_KEY;
 
-      url.searchParams.append("lat", lat);
-      url.searchParams.append("lon", lon);
-      url.searchParams.append("metric", "units");
-      url.searchParams.append("appid", API);
+    url.searchParams.append("lat", lat);
+    url.searchParams.append("lon", lon);
+    url.searchParams.append("units", "metric");
+    url.searchParams.append("appid", API);
 
+    if (lat && lon) {
       const fetchData = async () => {
-          const data = await fetch(url);
-          const json = await data.json();
+        const data = await fetch(url);
+        const json = await data.json();
 
-          console.log(json);
+        console.log(json);
 
-          if (json) {
-              setCurWeather(json);
-          }
+        if (json) {
+          setCurWeather(json);
+        }
+
+        if (json && json.main) {
+          setMinTemp(json.main.temp_min);
+          setMaxTemp(json.main.temp_max);
+        }
+
+        if (json && json.weather && json.weather.length > 0) {
+          setIcon(json.weather[0].icon);
+          setDesc(json.weather[0].description);
+        }
+        if (json && json.name) {
+          setName(json.name);
+        }
       };
       fetchData();
 
       fetchData().catch(console.error);
-
     }
-}, []);
+  }, [lat, lon]);
 
-  const minTemp = curWeather.main.temp_min;
-  const maxTemp = curWeather.main.temp_max;
-  const icon = curWeather.weather[0].icon;
-  const desc = curWeather.weather[0].description;
-  const name = curWeather.name;
-
-  https://openweathermap.org/img/wn/10d@2x.png
+  console.log(curWeather);
 
   return (
     <>
@@ -46,8 +56,11 @@ const CurWeather = ({ lat, lon }) => {
         <h3>Current weather forecast</h3>
         <div className="forecastBox">
           <div className="forecasts">
-            <h4>Current weather in {name}</h4>
-            <img src="https://openweathermap.org/img/wn/{icon}.png"></img>
+            <h4>{name}</h4>
+            <img
+              src={"https://openweathermap.org/img/wn/" + icon + ".png"}
+              alt="Weather icon"
+            />
             <p>description: {desc}</p>
             <p>min temp: {minTemp}</p>
             <p>max temp: {maxTemp}</p>
