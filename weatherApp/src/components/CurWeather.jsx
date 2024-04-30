@@ -48,16 +48,15 @@ const CurWeather = ({ lat, lon }) => {
     }
   }, [lat, lon]);
 
-  console.log(curWeather);
-
   return (
     <>
       <div className="box cur">
-        <h3>Current weather forecast</h3>
-        <h4>{name}</h4>
-        <div className="forecastBox">
+      <h3>Current weather forecast</h3>
+        <h4 className="curForecast">{name}</h4>
+        <div className="forecastBox curForecast">
+
           {curWeather && (          
-            <div className="forecasts">
+            <div className="forecasts ">
               <div>
                 <img
                   src={"https://openweathermap.org/img/wn/" + icon + ".png"}

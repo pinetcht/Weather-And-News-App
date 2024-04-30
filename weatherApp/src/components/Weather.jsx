@@ -61,7 +61,7 @@ const WeatherApp = () => {
                 <div> <CurWeather lat={lat} lon={lon} /></div>
                 <div> <Hourly lat={lat} lon={lon}></Hourly></div>
                 <div> <Daily lat={lat} lon={lon}> </Daily></div>
-                <div className="box"><h3> <News/></h3></div>
+                <div ><News/></div>
             </div>
 
         </>

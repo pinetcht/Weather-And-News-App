@@ -46,7 +46,6 @@ const Daily = ({ lat, lon }) => {
       const icon = day.weather[0].icon;
       const desc = day.weather[0].description;
 
-
       const dt = day.dt;
       let date = new Date(dt * 1000);
       date = date.toLocaleString().split(" ")[0].replace(",","")

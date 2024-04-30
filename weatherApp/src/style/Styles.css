@@ -7,46 +7,65 @@
 }
 
 .box {
-  background-color:antiquewhite;
+  background-color:cornsilk;
   border-color: black;
   border-radius: 10px;
   box-shadow: 10px 10px 5px gainsboro;
-  height: 200px;
+  height: 220px;
   margin: 10px;
   text-align: center;
   padding: 10px;
+
+
 }
 
-.cur {
-  flex: 1;
-  align-content: center;
+.grid > div {
+  flex-basis: calc(50% - 5px)
 }
 
-.hour {
-  flex: 1;
-}
 
-/* .grid > div {
-  flex-basis: calc(50% - 20px);
-} */
+.news {
+  overflow-y: scroll;
+}
 
 .forecastBox {
   display:flex;
   justify-content: center;
   flex-direction: row;
   margin: 5px;
+
+}
+
+.curForecast {
+  margin: 20px ;
 }
 
 .forecasts {
   display: flex;
+  width: auto;
   font-family:Georgia, 'Times New Roman', Times, serif;
-  font-size: smaller;
-  align-content: center;
   margin:5px;
+
 }
 
+.article-container {
+  width: 33.33%;
+  float: left;
+  box-sizing: border-box;
+
+}
+
+.article-title {
+  font-weight: bold;
+}
+
+.article-abstract {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+
 .forecasts > div {
-  /* display: flex; */
   align-content:start;
   flex-wrap: wrap;
   flex-direction: row;
@@ -57,6 +76,7 @@
 .forecasts p {
   margin: 5px 10px;
 }
+
 
 h1 {
   margin: 5px;
@@ -73,16 +93,33 @@ h4 {
   margin: 5px;
   font-family: 'Courier New', Courier, monospace;
 }
+p {
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-size:small;
+
+}
+
+a {
+  color:black;
+  font-size: smaller;
+  font-weight:bolder;
+}
 
 body {
     padding: 10px;
+    background-color: aliceblue;
 }
 
 
 input {
+  font-family: 'Courier New', Courier, monospace;
     margin: 5px;
 }
 
 label {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+button {
   font-family: 'Courier New', Courier, monospace;
 }

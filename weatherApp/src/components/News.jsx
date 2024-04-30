@@ -2,44 +2,61 @@ import "../style/Styles.css";
 import React, { useEffect, useState } from "react";
 
 const News = () => {
+  const [news, setNews] = useState(null);
+  const [date, setDate] = useState(null);
 
-    const [news, setNews] = useState(null);
+  useEffect(() => {
+    let url = new URL("https://api.nytimes.com/svc/topstories/v2/home.json");
+    const API = import.meta.env.VITE_NYT_KEY;
 
-    // const API = import.meta.env.VITE_WEATHER_KEY;
-    // let url = new URL("http://api.openweathermap.org/geo/1.0/direct");
+    url.searchParams.append("api-key", API);
 
-    // useEffect(() => {
-    //     if (geocode) {
-    //         const lat = geocode.lat;
-    //         const lon = geocode.lon;
-    //         let url2 = new URL("https://api.openweathermap.org/data/2.5/onecall");
-    //         url2.searchParams.append("lat", lat);
-    //         url2.searchParams.append("lon", lon);
-    //         url2.searchParams.append("metric", "units");
-    //         url2.searchParams.append("appid", API);
+    const fetchData = async () => {
+      const data = await fetch(url);
+      const json = await data.json();
 
-    //         const fetchData = async () => {
-    //             setLoading(true)
-    //             const data = await fetch(url2);
-    //             const json = await data.json();
+      if (json.results) {
+        setNews(json.results);
+      }
+      if (json.last_updated) {
+        setDate(json.last_updated.split("T")[0]);
+      }
+    };
+    fetchData();
 
-    //             console.log(json);
+    fetchData().catch(console.error);
+  }, []);
 
-    //             if (json[0] != null) {
-    //                 setWeather(json[0]);
-    //             }
-    //         };
-    //         fetchData();
-    //         setLoading(false)
+  let News = null;
 
-    //         fetchData().catch(console.error);
+  if (news && date) {
+    News = news.slice(0, 3).map((article, index) => {
+      const title = article.title;
+      const abstract = article.abstract;
+      const link = article.url;
 
-    //     }
-    // }, [geocode]);
 
-    return (
+
+      return (
+        <div key={index} className="article-container">
+          <a href={link} className="article-title">
+            {title}
+          </a>
+          <p className="article-abstract">{abstract}</p>
+        </div>
+      );
+    });
+  }
+
+  return (
     <>
-     <h3>News</h3>
+      <div className="box news">
+        <h3>Top Stories</h3>
+        <h4>{date}</h4>
+        <div className="forecastBox">
+          <div className="forecasts"> {News}</div>
+        </div>
+      </div>
     </>
   );
 };
